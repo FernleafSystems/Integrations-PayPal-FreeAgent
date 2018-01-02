@@ -3,14 +3,22 @@
 namespace FernleafSystems\Integrations\Paypal_Freeagent\DataWrapper;
 
 use FernleafSystems\Utilities\Data\Adapter\StdClassAdapter;
+use PayPal\Service\PayPalAPIInterfaceServiceService;
 
 /**
- * Class PaypalMerchantApiConfig
+ * Class PaypalMerchantApi
  * @package FernleafSystems\Integrations\Paypal_Freeagent\DataWrapper
  */
-class PaypalMerchantApiConfig {
+class PaypalMerchantApi {
 
 	use StdClassAdapter;
+
+	/**
+	 * @return PayPalAPIInterfaceServiceService
+	 */
+	public function api() {
+		return new PayPalAPIInterfaceServiceService( $this->getConfig() );
+	}
 
 	/**
 	 * @return array
