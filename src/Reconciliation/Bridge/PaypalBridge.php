@@ -4,8 +4,11 @@ namespace FernleafSystems\Integrations\Paypal_Freeagent\Reconciliation\Bridge;
 
 use FernleafSystems\ApiWrappers\Freeagent\Entities;
 use FernleafSystems\Integrations\Freeagent;
+use FernleafSystems\Integrations\Paypal_Freeagent\Consumers\PaypalMerchantApiConfigConsumer;
 
 abstract class PaypalBridge implements Freeagent\Reconciliation\Bridge\BridgeInterface {
+
+	use PaypalMerchantApiConfigConsumer;
 
 	/**
 	 * This needs to be extended to add the Invoice Item details.
