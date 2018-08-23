@@ -40,6 +40,15 @@ abstract class PaypalBridge implements Freeagent\Reconciliation\Bridge\BridgeInt
 	}
 
 	/**
+	 * This isn't applicable to PayPal
+	 * @param string $sRefundId
+	 * @return Freeagent\DataWrapper\RefundVO
+	 */
+	public function buildRefundFromId( $sRefundId ) {
+		return null;
+	}
+
+	/**
 	 * With Paypal, the Transaction and the Payout are essentially the same thing.
 	 * @param string $sPayoutId
 	 * @return Freeagent\DataWrapper\PayoutVO
