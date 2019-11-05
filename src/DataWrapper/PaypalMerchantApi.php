@@ -34,5 +34,4 @@ class PaypalMerchantApi {
 	public function setConfig( $aApiConfig ) {
 		return $this->setParam( 'api_config', $aApiConfig );
 	}
-
 }
