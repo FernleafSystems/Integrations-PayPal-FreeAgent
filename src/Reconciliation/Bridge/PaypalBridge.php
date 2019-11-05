@@ -10,7 +10,8 @@ use PayPal\PayPalAPI\GetTransactionDetailsRequestType;
 
 abstract class PaypalBridge implements Freeagent\Reconciliation\Bridge\BridgeInterface {
 
-	use PaypalMerchantApiConsumer;
+	use PaypalMerchantApiConsumer,
+		Freeagent\Consumers\FreeagentConfigVoConsumer;
 
 	/**
 	 * This needs to be extended to add the Invoice Item details.
@@ -24,9 +25,9 @@ abstract class PaypalBridge implements Freeagent\Reconciliation\Bridge\BridgeInt
 		try {
 			$oDets = $this->getTxnChargeDetails( $sTxnID );
 
+			$oCharge->gateway = 'paypalexpress';
+			$oCharge->payment_terms = $this->getFreeagentConfigVO()->invoice_payment_terms;
 			$oCharge->setId( $sTxnID )
-					->setGateway( 'paypalexpress' )
-					->setPaymentTerms( 1 )
 					->setAmount_Gross( $oDets->GrossAmount->value )
 					->setAmount_Fee( $oDets->FeeAmount->value )
 					->setAmount_Net( $oDets->GrossAmount->value - $oDets->FeeAmount->value )
@@ -59,8 +60,8 @@ abstract class PaypalBridge implements Freeagent\Reconciliation\Bridge\BridgeInt
 
 		try {
 			$oDets = $this->getTxnChargeDetails( $sPayoutId );
-			$oPayout->setDateArrival( strtotime( $oDets->PaymentDate ) )
-					->setCurrency( $oDets->GrossAmount->currencyID );
+			$oPayout->date_arrival = strtotime( $oDets->PaymentDate );
+			$oPayout->currency = $oDets->GrossAmount->currencyID;
 
 			$oPayout->addCharge(
 				$this->buildChargeFromTransaction( $sPayoutId )

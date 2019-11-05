@@ -18,7 +18,7 @@
   ],
   "require":      {
     "php":                                    ">=5.6.0",
-    "fernleafsystems/integrations-freeagent": "~0.1.0",
+    "fernleafsystems/integrations-freeagent": "~0.1.5",
     "paypal/merchant-sdk-php":                "~3.0"
   },
   "require-dev":  {
